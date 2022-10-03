@@ -1,7 +1,19 @@
 import React from "react";
 
-const Loader = () => {
-  return <div>Loader</div>;
+import styles from "../styles";
+import { ethereumLogo } from "../assets";
+
+const Loader = ({ title }) => {
+  return (
+    <div className={styles.loader}>
+      <img
+        src={ethereumLogo}
+        alt="ethereum logo"
+        className={styles.loaderImg}
+      />
+      <p className={styles.loaderText}>{title}</p>
+    </div>
+  );
 };
 
 export default Loader;
