@@ -11,7 +11,7 @@ const App = () => {
           <img
             src={uniswapLogo}
             alt="uniswap logo"
-            className="w-full h-16 object-contain"
+            className="w-16 h-16 object-contain"
           />
           WalletButton
         </header>
@@ -21,7 +21,9 @@ const App = () => {
 
           <div className={styles.exchangeBoxWrapper}>
             <div className={styles.exchangeBox}>
-              <div />
+              <div className="pink_gradient" />
+              <div className={styles.exchange}></div>
+              <div className="blue_gradient" />
             </div>
           </div>
         </div>
