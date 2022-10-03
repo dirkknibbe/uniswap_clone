@@ -6,7 +6,17 @@ import styles from "../styles";
 const WalletButton = () => {
   const { ens } = useLookupAddress();
   const { account, activateBrowserWallet, deactivate } = useEthers();
-  const [rendered, setRendered] = useState("");
+  const [accountAddress, setAccountAddress] = useState("");
+
+  useEffect(() => {
+    if (ens) {
+      setAccountAddress(ens);
+    } else if (account) {
+      setAccountAddress(shortenAddress(account));
+    } else {
+      setAccountAddress("");
+    }
+  }, [account, ens, setAccountAddress]);
 
   return (
     <button
@@ -19,8 +29,7 @@ const WalletButton = () => {
       }}
       className={styles.walletButton}
     >
-      {rendered === "" && "Connect Wallet"}
-      {rendered !== "" && rendered}
+      {accountAddress || "Connect Wallet"}
     </button>
   );
 };
