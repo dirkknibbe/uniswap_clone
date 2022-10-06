@@ -57,7 +57,7 @@ const Exchange = ({ pools }) => {
           disabled={!"canSwap"}
           onClick={() => {}}
           className={`${
-            "canApprove"
+            "canSwap"
               ? "bg-site-pink text-white"
               : "bg-site-dim2 text-site-dim2"
           }${styles.actionButton}`}
