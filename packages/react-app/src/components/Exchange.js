@@ -49,11 +49,26 @@ const Exchange = ({ pools }) => {
     fromTokenBalance ?? parseUnits("0")
   );
 
-  const isApproving = isOperationPending("approve"); // TODO
-  const isSwapping = isOperationPending("swap"); // TODO
+  const { state: swapApproveState, send: swapApproveSend } =
+    useContractFunction(fromTokenContract, "approve", {
+      transactionName: "onApproveRequested",
+      gasLimitBufferPercentage: 10,
+    });
 
-  // const successMessage = getSuccessMessage(); // TODO
-  // const failureMessage = getFailureMessage(); // TODO
+  const { state: swapExecuteState, send: swapExecuteSend } =
+    useContractFunction(routerContract, "swapExactTokensForTokens", {
+      transactionName: "swapExactTokensForTokens",
+      gasLimitBufferPercentage: 10,
+    });
+
+  const isApproving = isOperationPending(swapApproveState);
+  const isSwapping = isOperationPending(swapExecuteState);
+  const canApprove = !isApproving && approveNeeded;
+  const canSwap =
+    !approveNeeded && !isSwapping && fromValueGreaterThan0 && hasEnoughBalance;
+
+  const successMessage = getSuccessMessage(swapApproveState, swapExecuteState);
+  const failureMessage = getFailureMessage(swapApproveState, swapExecuteState);
 
   return (
     <div className="flex flex-col w-full items-center">
