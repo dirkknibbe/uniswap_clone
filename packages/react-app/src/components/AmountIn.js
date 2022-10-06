@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 
 import { chevronDown } from "../assets";
-import styles from "../styles";
 import { useOnClickOutside } from "../utils";
+import styles from "../styles";
 
 const AmountIn = ({
   value,
@@ -19,11 +19,9 @@ const AmountIn = ({
   useOnClickOutside(ref, () => setShowList(false));
 
   useEffect(() => {
-    if (Object.keys(currencies).includes(currencyValue)) {
+    if (Object.keys(currencies).includes(currencyValue))
       setActiveCurrency(currencies[currencyValue]);
-    } else {
-      setActiveCurrency("Select");
-    }
+    else setActiveCurrency("Select");
   }, [currencies, currencyValue]);
 
   return (
@@ -38,9 +36,10 @@ const AmountIn = ({
         }
         className={styles.amountInput}
       />
+
       <div
         className="relative"
-        onClick={() => setShowList((prevState) => !prevState)}
+        onClick={() => setShowList(() => setShowList(!showList))}
       >
         <button className={styles.currencyButton}>
           {activeCurrency}
@@ -52,6 +51,7 @@ const AmountIn = ({
             }`}
           />
         </button>
+
         {showList && (
           <ul ref={ref} className={styles.currencyList}>
             {Object.entries(currencies).map(([token, tokenName], index) => (

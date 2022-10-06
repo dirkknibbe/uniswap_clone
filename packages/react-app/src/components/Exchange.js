@@ -1,12 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Contract } from "@ethersproject/contracts";
 import { abis } from "@my-app/contracts";
-import { ethers } from "ethers";
-import { parseUnits } from "ethers/lib/utils";
-import { ROUTER_ADDRESS } from "../config";
-import { AmountIn, AmountOut, Balance } from "./";
-import styles from "../styles";
-
 import {
   ERC20,
   useContractFunction,
@@ -14,6 +8,9 @@ import {
   useTokenAllowance,
   useTokenBalance,
 } from "@usedapp/core";
+import { ethers } from "ethers";
+import { parseUnits } from "ethers/lib/utils";
+
 import {
   getAvailableTokens,
   getCounterpartTokens,
@@ -22,6 +19,11 @@ import {
   getFailureMessage,
   getSuccessMessage,
 } from "../utils";
+import { ROUTER_ADDRESS } from "../config";
+import AmountIn from "./AmountIn";
+import AmountOut from "./AmountOut";
+import Balance from "./Balance";
+import styles from "../styles";
 
 const Exchange = ({ pools }) => {
   const { account } = useEthers();
