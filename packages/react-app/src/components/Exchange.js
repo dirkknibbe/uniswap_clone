@@ -32,7 +32,7 @@ const Exchange = ({ pools }) => {
   const [toToken, setToToken] = useState("");
   const [resetState, setResetState] = useState(false);
 
-  const fromValueBigNumber = parseUnits(fromValue);
+  const fromValueBigNumber = parseUnits(fromValue || "0");
   const availableTokens = getAvailableTokens(pools);
   const counterpartTokens = getCounterpartTokens(pools, fromToken);
   const pairAddress =
