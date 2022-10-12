@@ -38,10 +38,7 @@ const AmountOut = ({
         disabled
         className={styles.amountInput}
       />
-      <div
-        className="relative"
-        onClick={() => setShowList((prevState) => !prevState)}
-      >
+      <div className="relative" onClick={() => setShowList(!showList)}>
         <button className={styles.currencyButton}>
           {activeCurrency}
           <img

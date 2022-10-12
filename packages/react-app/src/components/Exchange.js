@@ -25,9 +25,9 @@ import AmountOut from "./AmountOut";
 import Balance from "./Balance";
 import styles from "../styles";
 
-const Exchange = ({ pools }) => {
+const Exchange = ({ pools, value }) => {
   const { account } = useEthers();
-  const [fromValue, setFromValue] = useState("0");
+  const [fromValue, setFromValue] = useState("");
   const [fromToken, setFromToken] = useState(pools[0].token0Address);
   const [toToken, setToToken] = useState("");
   const [resetState, setResetState] = useState(false);
@@ -83,8 +83,8 @@ const Exchange = ({ pools }) => {
       [fromToken, toToken],
       account,
       Math.floor(Date.now() / 1000) + 60 * 20
-    ).then(() => {
-      setFromValue("0");
+    ).then((_) => {
+      setFromValue("");
     });
   };
 
@@ -97,9 +97,7 @@ const Exchange = ({ pools }) => {
 
         setFromValue(value);
       }
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (e) {}
   };
 
   const onFromTokenChange = (value) => {
@@ -114,7 +112,7 @@ const Exchange = ({ pools }) => {
     if (failureMessage || successMessage) {
       setTimeout(() => {
         setResetState(true);
-        setFromValue("0");
+        setFromValue("");
         setToToken("");
       }, 5000);
     }
@@ -124,12 +122,13 @@ const Exchange = ({ pools }) => {
     <div className="flex flex-col w-full items-center">
       <div className="mb-8">
         <AmountIn
-          value={fromValue}
+          value={value} // changed from fromValue to value to make the backspace go back to 0.0 placeholder
           onChange={onFromValueChange}
           currencyValue={fromToken}
           onSelect={onFromTokenChange}
           currencies={availableTokens}
           isSwapping={isSwapping && hasEnoughBalance}
+          setFromValue={setFromValue}
         />
         <Balance tokenBalance={fromTokenBalance} />
       </div>

@@ -5,6 +5,7 @@ import { useOnClickOutside } from "../utils";
 import styles from "../styles";
 
 const AmountIn = ({
+  setFromValue,
   value,
   onChange,
   currencyValue,
@@ -22,7 +23,16 @@ const AmountIn = ({
     if (Object.keys(currencies).includes(currencyValue))
       setActiveCurrency(currencies[currencyValue]);
     else setActiveCurrency("Select");
-  }, [currencies, currencyValue]);
+  }, [currencies, currencyValue, value]);
+
+  const handleKeyDown = (event) => {
+    // console.log(message);
+
+    if (event.key === "Backspace" && !value) {
+      // 👇️ your logic here
+      setFromValue("");
+    }
+  };
 
   return (
     <div className={styles.amountContainer}>
@@ -30,6 +40,7 @@ const AmountIn = ({
         placeholder="0.0"
         type="number"
         value={value}
+        onKeyDown={handleKeyDown}
         disabled={isSwapping}
         onChange={(e) =>
           typeof onChange === "function" && onChange(e.target.value)
