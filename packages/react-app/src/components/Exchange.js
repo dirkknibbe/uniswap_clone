@@ -161,7 +161,9 @@ const Exchange = ({ pools, value }) => {
           disabled={!canSwap}
           onClick={onSwapRequested}
           className={`${
-            canSwap ? "bg-site-pink text-white" : "bg-site-dim2 text-site-dim2"
+            canSwap && pairAddress
+              ? "bg-site-pink text-white"
+              : "bg-site-dim2 text-site-dim2"
           } ${styles.actionButton}`}
         >
           {isSwapping
